@@ -52,6 +52,9 @@ app.get('/accounts', (req, res) => {
   accounts.forEach((a) => {
     delete a.password
   });
+  accounts = accounts.filter((it)=>{
+    return it.email !="admin@local";
+  });
   res.send(accounts)
 })
 
@@ -165,6 +168,7 @@ app.post('/login', (req, res) => {
   let r = a.filter((it) => {
     return it.email == req.body.email && it.password == req.body.password
   });
+  console.log(r,req.body);
   let token = false;
   if (r.length) {
     token = new Date().getTime();
